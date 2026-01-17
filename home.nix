@@ -78,14 +78,25 @@
     # EDITOR = "emacs";
   };
 
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.bash.enable = true;
+  programs.bash.shellAliases = {
+    hms = "home-manager switch --flake ~/.config/home-manager";
+  };
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    shellAliases = {
+      hms = "home-manager switch --flake ~/.config/home-manager";
+    };
   };
   programs.direnv = {
     enable = true;
