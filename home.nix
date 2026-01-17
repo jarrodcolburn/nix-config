@@ -89,7 +89,7 @@
   programs.home-manager.enable = true;
   programs.bash.enable = true;
   programs.bash.shellAliases = {
-    hms = "home-manager switch --flake ~/.config/home-manager --extra-experimental-features 'nix-command flakes'";
+    hms = "home-manager switch --flake ~/.config/home-manager";
   };
   programs.zsh = {
     enable = true;
@@ -97,7 +97,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      hms = "home-manager switch --flake ~/.config/home-manager --extra-experimental-features 'nix-command flakes'";
+      hms = "home-manager switch --flake ~/.config/home-manager";
     };
   };
   programs.direnv = {
