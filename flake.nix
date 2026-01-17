@@ -13,9 +13,12 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # NVF (Neovim Framework)
+    nvf.url = "github:notashelf/nvf";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nvf, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -32,6 +35,7 @@
         # Specify your home configuration modules here
         modules = [
           ./home.nix
+          nvf.homeManagerModules.default
         ];
 
         # Pass 'unstable' to home.nix
