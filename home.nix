@@ -25,6 +25,8 @@
     pkgs.rustc
     pkgs.cargo
     unstable.gemini-cli
+    pkgs.mcp-nixos
+    pkgs.playwright-mcp
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -87,7 +89,7 @@
   programs.home-manager.enable = true;
   programs.bash.enable = true;
   programs.bash.shellAliases = {
-    hms = "home-manager switch --flake ~/.config/home-manager";
+    hms = "home-manager switch --flake ~/.config/home-manager --extra-experimental-features 'nix-command flakes'";
   };
   programs.zsh = {
     enable = true;
@@ -95,7 +97,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      hms = "home-manager switch --flake ~/.config/home-manager";
+      hms = "home-manager switch --flake ~/.config/home-manager --extra-experimental-features 'nix-command flakes'";
     };
   };
   programs.direnv = {
@@ -152,6 +154,25 @@
     # package = unstable.gh; # Uncomment to use the unstable version
     settings = {
       git_protocol = "ssh";
+    };
+  };
+
+  programs.mcp = {
+    enable = true;
+    servers = {
+      nixos = {
+        command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+      };
+      playwright = {
+        command = "${pkgs.playwright-mcp}/bin/mcp-server-playwright";
+      };
+      context7 = {
+        command = "npx";
+        args = [ "-y" "context7-mcp" ];
+        env = {
+          CONTEXT7_API_KEY = "YOUR_API_KEY_HERE";
+        };
+      };
     };
   };
 }
